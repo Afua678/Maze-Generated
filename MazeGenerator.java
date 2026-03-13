@@ -14,8 +14,10 @@ public class MazeGenerator {
         // Pop off the cheapest vertex and add it to list of vertexes we do have
         // Update all the values of the edges that we bow have access too in the PriorityQueue
 
+
+        in.close();
     }
 
-
+    
 
 }
