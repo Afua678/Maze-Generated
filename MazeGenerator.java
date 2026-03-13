@@ -9,11 +9,10 @@ public class MazeGenerator {
         int n = in.nextInt();
         System.out.println();
 
-        // Three necessary data structures: vertices in the MST, edges in the MST, vertices outside the MST
-        // PriorityQueue with updating values, each node holds a vertice and its cheapest edge
-        // Pop off the cheapest vertex and add it to list of vertexes we do have
-        // Update all the values of the edges that we bow have access too in the PriorityQueue
+        // 2D array for keeping track of added vertices, starts at 0
+        int[][] vertexArray = new int[n][n];
 
+        
 
         in.close();
     }
