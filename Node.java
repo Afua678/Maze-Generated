@@ -1,21 +1,15 @@
 public class Node implements Comparable<Node>{
-    int cost, x, y;
+    int x, y, cost;
 
     public Node(int x, int y) {
-        cost = Integer.MAX_VALUE;
         this.x = x;
         this.y = y;   
+        cost = Integer.MAX_VALUE;
     }
 
-    public boolean randomEdge(int c){
-        // I don't think we need this if statement anymore because we dont need to compare to previous 
-        // cost since the previous cost could be lower if we look at it from another node, but that node is
-        // already in set
-        // if(c<cost){
-            int cost = c;
-            return true;
-        // }
-            // return false;
+    // we use this method in the UpdatingHeap with an if-statement
+    public void updateCost(int c){
+        cost = c;
     }
 
 // edges are created as we "unlock them" and they are assigned random weights

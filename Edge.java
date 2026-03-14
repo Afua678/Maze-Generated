@@ -8,7 +8,6 @@ public class Edge {
         cost = (int)((Math.random()* 10)+ 1);
         
         //updates the node we are considering
-        node2.cost = cost;
+        // node2.cost = cost;
     }
-
 }
