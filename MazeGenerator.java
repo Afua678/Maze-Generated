@@ -18,17 +18,17 @@ public class MazeGenerator {
         
         allNodes.add(n);
         
-        // MOVED TO UPDATING HEAP
-        // while (nodes < len*len){
-        //     node = heap.addNode(node, tree);
-        //     nodes++;
-        //     allNodes.add(node);
+        // MOVED THIS FROM UPDATING HEAP
+        // if(n.x+ 1 < indices.length){
+        //     Edge z = new Edge(n, tree[n.x + 1][n.y]);
+            
+        //     x = tree[n.x + 1][n.y];
         // }
 
         return allNodes;
     }
 
-    
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 

@@ -39,19 +39,10 @@ public class UpdatingHeap {
         return min;
     }
 
-    //check and update the neighbors then return the smallest neighbor
-    public Node updateNode(Node n, Node[][] tree ){
-        Node x = null;
-        if(n.x+ 1 < indices.length){
-            Edge z = new Edge(n, tree[n.x + 1][n.y]);
-            
-            x = tree[n.x + 1][n.y];
-        }
-        
-        // from here on udpate x if the cost of that node is less
-        //also edge z updates the cost of the node when we look at it in the edge class
-        // so no need to update the cost
-        return x;
+    // Use with if-statement in MazeGenerator to update new edge values
+    public void updateNode(Edge e, boolean[][] inTree) {
+        // WORK IN PROGRESS
+        // bubbleUp(index of changed node);
     }
 
     private void bubbleDown(int i) {
