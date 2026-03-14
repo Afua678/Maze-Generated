@@ -2,14 +2,17 @@ import java.util.ArrayList;
 
 public class UpdatingHeap {
     int[][] indices;
+    boolean[][] inTree;
     ArrayList<Node> heap;
 
-    public UpdatingHeap(int length, Node[][] tree) {
+    public UpdatingHeap(int length, Node[][] tree, boolean[][] inTree) {
         indices = new int[length][length];
+        this.inTree = inTree;
         heap = createHeap(tree);
     }
 
-    // This is the only time that we will be adding nodes to the heap
+    // All nodes are added upon instantiation, the only time there will be adding
+    // Since they all have the same cost (max), there is no bubbling
     private ArrayList<Node> createHeap(Node[][] tree) {
         ArrayList<Node> nodes = new ArrayList<>();
         int index = 0; 
@@ -31,6 +34,7 @@ public class UpdatingHeap {
         }
 
         Node min = heap.get(0);
+        inTree[min.x][min.y] = true;
         Node lastItem = heap.remove(heap.size() - 1);
         heap.set(0, lastItem);
         indices[lastItem.x][lastItem.y] = 0;
@@ -39,10 +43,13 @@ public class UpdatingHeap {
         return min;
     }
 
-    // Use with if-statement in MazeGenerator to update new edge values
-    public void updateNode(Edge e, boolean[][] inTree) {
-        // WORK IN PROGRESS
-        // bubbleUp(index of changed node);
+    public void updateNode(Node n, int newCost) {
+        int index = indices[n.x][n.y];
+
+        if (newCost < heap.get(index).cost) {
+            heap.get(index).cost = newCost;
+            bubbleUp(index);
+        }
     }
 
     private void bubbleDown(int i) {
@@ -59,7 +66,7 @@ public class UpdatingHeap {
             smallest = 2*i+2;
         }
         
-        // if the smallest key is not the current key then bubble-down it.
+        // if the smallest key is not the current key then bubble-down
         if (smallest != i) {
             swap(i, smallest);
             bubbleDown(smallest);

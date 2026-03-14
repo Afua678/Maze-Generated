@@ -7,25 +7,38 @@ public class MazeGenerator {
     //creates a spanning tree that will return the LinkedList of the Nodes
     // or alternatively  we could return an array with each spot pointing to it the next
     // so it is easier to make the graph later (we can change this if needed)
-    public static LinkedList<Node> spanningTree(Node n, int len, Node[][] tree){
-        //keeps track of the number of nodes we have
-        //starting with 1 (because one node n as the source)
-        
-        int nodes = 1;
-        Node node = n;
-        UpdatingHeap heap = new UpdatingHeap(len, tree);
-        LinkedList<Node> allNodes = new LinkedList<Node>();
-        
-        allNodes.add(n);
-        
-        // MOVED THIS FROM UPDATING HEAP
-        // if(n.x+ 1 < indices.length){
-        //     Edge z = new Edge(n, tree[n.x + 1][n.y]);
-            
-        //     x = tree[n.x + 1][n.y];
-        // }
+    public static LinkedList<Node> spanningTree(int len, Node[][] tree){
+        boolean[][] inTree = new boolean[len][len];
+        LinkedList<Node> addedNodes = new LinkedList<Node>();
+        UpdatingHeap heap = new UpdatingHeap(len, tree, inTree);
 
-        return allNodes;
+        while (heap.heap.size() > 0) {
+            Node node = heap.pop();
+            addedNodes.add(node);
+            newEdges(node, heap, len, inTree, tree);
+        }
+
+        return addedNodes;
+    }
+
+    // Creates newEdges and also updates UpdatingHeap
+    private static void newEdges(Node n, UpdatingHeap heap, int len, boolean[][] inTree, Node[][] tree) {
+        if (n.x > 0 && inTree[n.x - 1][n.y] == false) {
+            Edge up = new Edge(n, tree[n.x-1][n.y]);
+            heap.updateNode(up.node2, up.cost);
+        }
+        if (n.x < len - 1 && inTree[n.x + 1][n.y] == false) {
+            Edge down = new Edge(n, tree[n.x+1][n.y]);
+            heap.updateNode(down.node2, down.cost);
+        }
+        if (n.y > 0 && inTree[n.x][n.y - 1] == false) {
+            Edge left = new Edge(n, tree[n.x][n.y-1]);
+            heap.updateNode(left.node2, left.cost);
+        }
+        if (n.y < len - 1 && inTree[n.x][n.y + 1] == false) {
+            Edge right = new Edge(n, tree[n.x][n.y-1]);
+            heap.updateNode(right.node2, right.cost);
+        }
     }
 
 
@@ -47,7 +60,7 @@ public class MazeGenerator {
         }
 
         // need to start at first node and add nodes into heap was we traverse
-        spanningTree(tree[0][0], n, tree);
+        spanningTree(n, tree);
 
         in.close();
     }
