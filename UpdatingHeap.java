@@ -26,7 +26,8 @@ public class UpdatingHeap {
             x = tree[n.x + 1][n.y];
         }
         // from here on udpate x if the cost of that node is less
-        //also edge z should update the cost of the node when we look at it, if it is less
+        //also edge z updates the cost of the node when we look at it in the edge class
+        // so no need to update the cost
         return x;
     }
 
