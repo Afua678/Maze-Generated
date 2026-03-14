@@ -1,7 +1,30 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.LinkedList;
 
 public class MazeGenerator {
+    //creates a spanning tree that will return the LinkedList of the Nodes
+    // or alternatively  we could return an array with each spot pointing to it the next
+    // so it is easier to make the graph later (we can change this if needed)
+    public static LinkedList<Node> spanningTree(Node n, int len, Node[][] tree){
+        //keeps track of the number of nodes we have
+        //starting with 1 (because one node n as the source)
+        int nodes = 1;
+        Node node = n;
+        UpdatingHeap heap = new UpdatingHeap(len);
+        LinkedList<Node> allNodes = new LinkedList<Node>();
+        
+        allNodes.add(n);
+        
+        // while the spanning tree is not full, keep ading nodes
+        while (nodes < len*len){
+            node = heap.addNode(node, tree);
+            nodes++;
+            allNodes.add(node);
+        }
+        return allNodes;
 
+    }
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
@@ -19,9 +42,8 @@ public class MazeGenerator {
             }
         }
 
-        // need to start at first node and add nodes into heap was we traverse
-        
-
+        // need to start at first node/random node and add nodes into heap was we traverse
+        spanningTree(tree[0][0], n, tree);
 
                 
         

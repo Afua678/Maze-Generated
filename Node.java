@@ -8,11 +8,14 @@ public class Node implements Comparable<Node>{
     }
 
     public boolean randomEdge(int c){
-        if(c<cost){
+        // I don't think we need this if statement anymore because we dont need to compare to previous 
+        // cost since the previous cost could be lower if we look at it from another node, but that node is
+        // already in set
+        // if(c<cost){
             int cost = c;
             return true;
-        }
-            return false;
+        // }
+            // return false;
     }
 
 // edges are created as we "unlock them" and they are assigned random weights
