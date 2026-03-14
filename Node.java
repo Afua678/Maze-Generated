@@ -1,20 +1,18 @@
 public class Node implements Comparable<Node>{
-    int cost;
-    Vertex vertex;
+    int cost, x, y;
 
-    //public class Node{
-    //i took out  implements Comparable<Node>
-    // int x;
-    // int y;
-
-    //  public Node(int x, int y) {
-    //     this.x = x;
-    //     this.y = y;
-    // }
-
-    public Node(int c, Vertex v) {
+    public Node(int x, int y) {
         cost = Integer.MAX_VALUE;
-        vertex = v;   
+        this.x = x;
+        this.y = y;   
+    }
+
+    public boolean randomEdge(int c){
+        if(c<cost){
+            int cost = c;
+            return true;
+        }
+            return false;
     }
 
 // edges are created as we "unlock them" and they are assigned random weights

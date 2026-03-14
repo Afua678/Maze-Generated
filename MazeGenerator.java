@@ -9,7 +9,7 @@ public class MazeGenerator {
         int n = in.nextInt();
         System.out.println();
         
-
+        // 2D array for keeping track of added vertices (nodes), starts at 0
         Node[][] tree = new Node[n][n];
         
         // instantiating each node
@@ -19,8 +19,8 @@ public class MazeGenerator {
             }
         }
 
-        // 2D array for keeping track of added vertices, starts at 0
-        int[][] vertexArray = new int[n][n];
+        // need to start at first node and add nodes into heap was we traverse
+        
 
 
                 

@@ -1,11 +1,11 @@
 public class Edge {
-    Vertex vertex1, vertex2; 
+    Node node1, node2; 
     int cost;
 
-    public Edge(Vertex vertex1, Vertex vertex2) {
-        this.vertex1 = vertex1;
-        this.vertex2 = vertex2;
-        cost = (int)(Math.random()* 10);
+    public Edge(Node node1, Node node2) {
+        this.node1 = node1;
+        this.node2 = node2;
+        cost = (int)((Math.random()* 10)+ 1);
     }
 
 }
