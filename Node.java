@@ -1,4 +1,5 @@
-public class Node implements Comparable<Node>{
+public class Node {
+
     int x, y, cost;
 
     public Node(int x, int y) {
@@ -17,8 +18,8 @@ public class Node implements Comparable<Node>{
 //two d (nxn) array of 1 andf 0, keeping track of which vertexes we have (btw I put this in UpdatingHeap)
 // possible we have x, and y coordinates to keep track of where we are
 
-    public int compareTo(Node e) {
-        return this.cost - e.cost;
+    public boolean isLessThan(Node e) {
+        return this.cost < e.cost;
     }
     
 }
