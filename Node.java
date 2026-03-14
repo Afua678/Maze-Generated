@@ -2,6 +2,16 @@ public class Node implements Comparable<Node>{
     int cost;
     Vertex vertex;
 
+    //public class Node{
+    //i took out  implements Comparable<Node>
+    // int x;
+    // int y;
+
+    //  public Node(int x, int y) {
+    //     this.x = x;
+    //     this.y = y;
+    // }
+
     public Node(int c, Vertex v) {
         cost = Integer.MAX_VALUE;
         vertex = v;   
@@ -9,7 +19,7 @@ public class Node implements Comparable<Node>{
 
 // edges are created as we "unlock them" and they are assigned random weights
 // edges themselves don't have weight, the node gets the weight.
-//two d (nxn) array of 1 andf 0, keeping track of which vertexes we have
+//two d (nxn) array of 1 andf 0, keeping track of which vertexes we have (btw I put this in UpdatingHeap)
 // possible we have x, and y coordinates to keep track of where we are
 
     public int compareTo(Node e) {
