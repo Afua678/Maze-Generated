@@ -1,5 +1,5 @@
 public class Node {
-
+    Node parent;
     int x, y, cost;
 
     public Node(int x, int y) {

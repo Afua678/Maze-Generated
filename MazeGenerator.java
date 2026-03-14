@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.LinkedList;
 
 public class MazeGenerator {
@@ -10,6 +9,9 @@ public class MazeGenerator {
     public static LinkedList<Node> spanningTree(int len, Node[][] tree){
         boolean[][] inTree = new boolean[len][len];
         LinkedList<Node> addedNodes = new LinkedList<Node>();
+
+        // Starting point is upper left corner
+        tree[0][0].cost = 0;
         UpdatingHeap heap = new UpdatingHeap(len, tree, inTree);
 
         while (heap.heap.size() > 0) {
@@ -23,21 +25,36 @@ public class MazeGenerator {
 
     // Creates newEdges and also updates UpdatingHeap
     private static void newEdges(Node n, UpdatingHeap heap, int len, boolean[][] inTree, Node[][] tree) {
-        if (n.x > 0 && inTree[n.x - 1][n.y] == false) {
+        if (n.x > 0 && !inTree[n.x - 1][n.y]) {
             Edge up = new Edge(n, tree[n.x-1][n.y]);
-            heap.updateNode(up.node2, up.cost);
+            if (up.cost < up.node2.cost) {
+                heap.updateNode(up.node2, up.cost);
+                up.node2.parent = n;
+            }
+            
         }
-        if (n.x < len - 1 && inTree[n.x + 1][n.y] == false) {
+        if (n.x < len - 1 && !inTree[n.x + 1][n.y]) {
             Edge down = new Edge(n, tree[n.x+1][n.y]);
-            heap.updateNode(down.node2, down.cost);
+            if (down.cost < down.node2.cost) {
+                heap.updateNode(down.node2, down.cost);
+                down.node2.parent = n;                
+            }
+
         }
-        if (n.y > 0 && inTree[n.x][n.y - 1] == false) {
+        if (n.y > 0 && !inTree[n.x][n.y - 1]) {
             Edge left = new Edge(n, tree[n.x][n.y-1]);
-            heap.updateNode(left.node2, left.cost);
+            if (left.cost < left.node2.cost) {
+                heap.updateNode(left.node2, left.cost);
+                left.node2.parent = n;            
+            }
+
         }
-        if (n.y < len - 1 && inTree[n.x][n.y + 1] == false) {
-            Edge right = new Edge(n, tree[n.x][n.y-1]);
-            heap.updateNode(right.node2, right.cost);
+        if (n.y < len - 1 && !inTree[n.x][n.y + 1]) {
+            Edge right = new Edge(n, tree[n.x][n.y + 1]);
+            if (right.cost < right.node2.cost) {
+                heap.updateNode(right.node2, right.cost);
+                right.node2.parent = n;                
+            }
         }
     }
 

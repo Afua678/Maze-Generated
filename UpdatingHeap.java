@@ -30,6 +30,7 @@ public class UpdatingHeap {
             throw new IndexOutOfBoundsException();
         } else if (heap.size() == 1) {
             Node min = heap.remove(0);
+            inTree[min.x][min.y] = true;
             return min;
         }
 
@@ -45,59 +46,40 @@ public class UpdatingHeap {
 
     public void updateNode(Node n, int newCost) {
         int index = indices[n.x][n.y];
-
-        if (newCost < heap.get(index).cost) {
-            heap.get(index).cost = newCost;
-            bubbleUp(index);
-        }
+        heap.get(index).updateCost(newCost);
+        bubbleUp(index);
     }
 
     private void bubbleDown(int i) {
-        Node currNode = heap.get(i);
-        Node left = getLeft(i);
-        Node right = getRight(i);
-        
-        // find smallest node between parent and children
         int smallest = i;
-        if ((2*i+1) <= heap.size() - 1 && left.isLessThan(currNode)) {
-            smallest = 2*i+1;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < heap.size() && heap.get(left).isLessThan(heap.get(smallest))) {
+            smallest = left;
         }
-        if ((2*i+2) <= heap.size() - 1 && right.isLessThan(currNode) && right.isLessThan(left)) {
-            smallest = 2*i+2;
+        if (right < heap.size() && heap.get(right).isLessThan(heap.get(smallest))) {
+            smallest = right;
         }
-        
-        // if the smallest key is not the current key then bubble-down
+
         if (smallest != i) {
             swap(i, smallest);
             bubbleDown(smallest);
         }
     }
 
-    private void bubbleUp(int i) {
-        Node currNode = heap.get(i);
-        Node parentNode = getParent(i);
-        int parent = parent(i);
 
-        while (i > 0 && parentNode.isLessThan(currNode)) {
+    private void bubbleUp(int i) {
+        while (i > 0) {
+            int parent = parent(i);
+
+            if (!heap.get(i).isLessThan(heap.get(parent))) {
+                break;
+            }
+
             swap(i, parent);
             i = parent;
-            parent = parent(parent);
         }
-    }
-    
-    private Node getRight(int i) {
-        return heap.get(2 * i + 2);
-    }
-
-    private Node getLeft(int i) {
-        return heap.get(2 * i + 1);
-    }
-
-    private Node getParent(int i) {
-         if (i % 2 == 1) {
-             return heap.get(i/2);
-         }
-         return heap.get((i-1)/2);
     }
 
     private int parent(int i) {
@@ -108,13 +90,14 @@ public class UpdatingHeap {
     }
 
     private void swap(int i, int j) {
-        Node temp = heap.get(j);
-        heap.set(j, heap.get(i));
-        heap.set(i, temp);  
+        Node a = heap.get(i);
+        Node b = heap.get(j);
 
-        int tempIndex = indices[heap.get(j).x][heap.get(j).y];
-        indices[heap.get(j).x][heap.get(j).y] = indices[heap.get(i).x][heap.get(i).y];
-        indices[heap.get(i).x][heap.get(i).y] = tempIndex;
+        heap.set(i, b);
+        heap.set(j, a);
+
+        indices[a.x][a.y] = j;
+        indices[b.x][b.y] = i;
     }
 
 }
