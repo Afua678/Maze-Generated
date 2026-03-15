@@ -77,11 +77,20 @@ public class MazeGenerator {
         }
 
         // need to start at first node and add nodes into heap was we traverse
-        LinkedList<Node> allNodes = spanningTree(n, tree);
+        spanningTree(n, tree);
 /* 
  _ _ _ _
 |_| 
  */
+
+for (int i = 0; i < tree.length; i++) {
+    for (int j = 0; j < tree.length; j++) {
+        if (i !=0 ||  j != 0){
+        System.out.println("Node: " + tree[i][j].x + " " +  tree[i][j].y + " parent: " + tree[i][j].parent.x  + " " +  tree[i][j].parent.y);
+    }
+}
+    
+}
         for (int i = 0; i < tree.length; i++) {
             System.out.print(" _");
         }
@@ -92,16 +101,19 @@ public class MazeGenerator {
                     underscore = true;;
                  }
                  System.out.print("|");
-                 if((i<n-1 && !tree[i][0].equals(tree[i+1][0].parent))|| underscore){
-                    System.out.print("_");
-                 }else{
+                 if(((i<n-1 && tree[i][0].equals(tree[i+1][0].parent)) && !underscore )|| ((i<n-1 && tree[i+1][0].equals(tree[i][0].parent)) && !underscore)){
                     System.out.print(" ");
+                 }else{
+                    System.out.print("_");
                  }
 
             for (int j = 1; j < tree.length; j++) {
-                if(i<n-1 && !tree[i][j].equals(tree[i+1][j].parent))
-                        underscore = true;
-                 if (tree[i][j].parent.equals(tree[i][j-1])){
+                if(i<n-1 && tree[i][j].equals(tree[i+1][j].parent) || i<n-1 && tree[i+1][j].equals(tree[i][j].parent)){
+                        underscore = false;
+                }else{
+                    underscore = true;
+                }
+                 if (tree[i][j].parent.equals(tree[i][j-1]) || j<n-1 && tree[i][j+1].parent.equals(tree[i][j]) ){
                     //System.out.println(i + " " + underscore + " " +j);
                     if(underscore){
                         System.out.print( " _");
