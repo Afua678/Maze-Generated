@@ -83,14 +83,15 @@ public class MazeGenerator {
 |_| 
  */
 
-for (int i = 0; i < tree.length; i++) {
-    for (int j = 0; j < tree.length; j++) {
-        if (i !=0 ||  j != 0){
-        System.out.println("Node: " + tree[i][j].x + " " +  tree[i][j].y + " parent: " + tree[i][j].parent.x  + " " +  tree[i][j].parent.y);
-    }
-}
+//for debugging purposes
+// for (int i = 0; i < tree.length; i++) {
+//     for (int j = 0; j < tree.length; j++) {
+//         if (i !=0 ||  j != 0){
+//         System.out.println("Node: " + tree[i][j].x + " " +  tree[i][j].y + " parent: " + tree[i][j].parent.x  + " " +  tree[i][j].parent.y);
+//     }
+// }
     
-}
+// }
         for (int i = 0; i < tree.length; i++) {
             System.out.print(" _");
         }
@@ -113,7 +114,7 @@ for (int i = 0; i < tree.length; i++) {
                 }else{
                     underscore = true;
                 }
-                 if (tree[i][j].parent.equals(tree[i][j-1]) || j<n-1 && tree[i][j+1].parent.equals(tree[i][j]) ){
+                 if (tree[i][j].parent.equals(tree[i][j-1]) || (j<n-1 && tree[i][j-1].parent.equals(tree[i][j])) ){
                     //System.out.println(i + " " + underscore + " " +j);
                     if(underscore){
                         System.out.print( " _");
