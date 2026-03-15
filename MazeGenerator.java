@@ -77,7 +77,49 @@ public class MazeGenerator {
         }
 
         // need to start at first node and add nodes into heap was we traverse
-        spanningTree(n, tree);
+        LinkedList<Node> allNodes = spanningTree(n, tree);
+/* 
+ _ _ _ _
+|_| 
+ */
+        for (int i = 0; i < tree.length; i++) {
+            System.out.print(" _");
+        }
+        System.out.println();
+        for (int i = 0; i < tree.length; i++) {
+            boolean underscore = false;
+                 if(i==n-1){
+                    underscore = true;;
+                 }
+                 System.out.print("|");
+                 if((i<n-1 && !tree[i][0].equals(tree[i+1][0].parent))|| underscore){
+                    System.out.print("_");
+                 }else{
+                    System.out.print(" ");
+                 }
+
+            for (int j = 1; j < tree.length; j++) {
+                if(i<n-1 && !tree[i][j].equals(tree[i+1][j].parent))
+                        underscore = true;
+                 if (tree[i][j].parent.equals(tree[i][j-1])){
+                    //System.out.println(i + " " + underscore + " " +j);
+                    if(underscore){
+                        System.out.print( " _");
+                    }else{
+                        System.out.print("  ");
+                    }
+                 }else{
+                    //System.out.println(i + " " + underscore + " " +j);
+                    if(underscore){
+                        System.out.print("|_");
+                    }else{
+                    System.out.print( "| ");
+                    }
+                 }
+            }
+            System.out.print("| \n");
+        }
+
 
         in.close();
     }

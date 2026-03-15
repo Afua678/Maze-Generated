@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class UpdatingHeap {
+    // keeps track of the order in which nodes are popped
     int[][] indices;
     boolean[][] inTree;
     ArrayList<Node> heap;
@@ -25,6 +26,7 @@ public class UpdatingHeap {
         return nodes;
     }
 
+    //removes min node and adjusts rest of tree
     public Node pop() {
         if (heap.size() == 0) {
             throw new IndexOutOfBoundsException();
