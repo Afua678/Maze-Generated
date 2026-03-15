@@ -1,0 +1,5 @@
+By Afua Anyadike & Bella Guo
+
+The algorithm that we used was Prihm's algorithm, meaning that we greedily added vertices. One 
+way that we modified it was by adding random edge weights as we traversed through the nodes 
+rather than having predetermined edge weights.
