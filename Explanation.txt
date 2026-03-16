@@ -2,6 +2,8 @@ By Afua Anyadike & Bella Guo
 
 The algorithm that we used was Prihm's algorithm, meaning that we greedily added vertices. One 
 way that we modified it was by adding random edge weights as we traversed through the nodes 
-rather than having predetermined edge weights. The way that we found the smallest edge out of all
+rather than having predetermined edge weights. This meant that we did not need to know the 
+weights before we started the algorithm. The way that we found the smallest edge out of all
 of the edge weights was by adding them to a heap, which was updated using the methods in 
-UpdatingHeap.java so it would be constant time to remove the node and log n to adjust it.
+UpdatingHeap.java so it would be constant time to remove the node and log n to adjust it. 
+We also recorded the x and y coordinates of the node, to make it easier for comparisons.

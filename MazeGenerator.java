@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class MazeGenerator {
 
-    //creates a spanning tree that will return the LinkedList of the Nodes
-    // or alternatively  we could return an array with each spot pointing to it the next
-    // so it is easier to make the graph later (we can change this if needed)
+    //creates a spanning tree
     public static void spanningTree(int len, Node[][] tree){
         boolean[][] inTree = new boolean[len][len];
 
