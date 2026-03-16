@@ -3,6 +3,7 @@ public class Node {
     int x, y, cost;
 
     public Node(int x, int y) {
+        parent = null;
         this.x = x;
         this.y = y;   
         cost = Integer.MAX_VALUE;

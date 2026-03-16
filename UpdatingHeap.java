@@ -34,16 +34,16 @@ public class UpdatingHeap {
             Node min = heap.remove(0);
             inTree[min.x][min.y] = true;
             return min;
-        }
-
-        Node min = heap.get(0);
+        }else{Node min = heap.get(0);
         inTree[min.x][min.y] = true;
         Node lastItem = heap.remove(heap.size() - 1);
         heap.set(0, lastItem);
         indices[lastItem.x][lastItem.y] = 0;
         bubbleDown(0);
+        
 
         return min;
+        }
     }
 
     public void updateNode(Node n, int newCost) {

@@ -1,26 +1,23 @@
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class MazeGenerator {
 
     //creates a spanning tree that will return the LinkedList of the Nodes
     // or alternatively  we could return an array with each spot pointing to it the next
     // so it is easier to make the graph later (we can change this if needed)
-    public static LinkedList<Node> spanningTree(int len, Node[][] tree){
+    public static void spanningTree(int len, Node[][] tree){
         boolean[][] inTree = new boolean[len][len];
-        LinkedList<Node> addedNodes = new LinkedList<Node>();
 
         // Starting point is upper left corner
         tree[0][0].cost = 0;
         UpdatingHeap heap = new UpdatingHeap(len, tree, inTree);
 
+        //keep popping nodes from the heap until heap is empty
         while (heap.heap.size() > 0) {
             Node node = heap.pop();
-            addedNodes.add(node);
             newEdges(node, heap, len, inTree, tree);
         }
 
-        return addedNodes;
     }
 
     // Creates newEdges as the algorith goes and also updates UpdatingHeap
@@ -31,7 +28,6 @@ public class MazeGenerator {
                 heap.updateNode(up.node2, up.cost);
                 up.node2.parent = n;
             }
-            
         }
         if (n.x < len - 1 && !inTree[n.x + 1][n.y]) {
             Edge down = new Edge(n, tree[n.x+1][n.y]);
@@ -39,7 +35,6 @@ public class MazeGenerator {
                 heap.updateNode(down.node2, down.cost);
                 down.node2.parent = n;                
             }
-
         }
         if (n.y > 0 && !inTree[n.x][n.y - 1]) {
             Edge left = new Edge(n, tree[n.x][n.y-1]);
@@ -71,27 +66,14 @@ public class MazeGenerator {
         
         // instantiating each node
         for (int i = 0; i < tree.length; i++) {
-            for (int j = 0; j < tree.length; j++) {
+            for (int j = 0; j < tree[i].length; j++) {
                 tree[i][j] = new Node(i, j);
             }
         }
 
         // need to start at first node and add nodes into heap was we traverse
         spanningTree(n, tree);
-/* 
- _ _ _ _
-|_| 
- */
 
-//for debugging purposes
-// for (int i = 0; i < tree.length; i++) {
-//     for (int j = 0; j < tree.length; j++) {
-//         if (i !=0 ||  j != 0){
-//         System.out.println("Node: " + tree[i][j].x + " " +  tree[i][j].y + " parent: " + tree[i][j].parent.x  + " " +  tree[i][j].parent.y);
-//     }
-// }
-    
-// }
         for (int i = 0; i < tree.length; i++) {
             System.out.print(" _");
         }
@@ -99,7 +81,7 @@ public class MazeGenerator {
         for (int i = 0; i < tree.length; i++) {
             boolean underscore = false;
                  if(i==n-1){
-                    underscore = true;;
+                    underscore = true;
                  }
                  System.out.print("|");
                  if(((i<n-1 && tree[i][0].equals(tree[i+1][0].parent)) && !underscore )|| ((i<n-1 && tree[i+1][0].equals(tree[i][0].parent)) && !underscore)){
@@ -109,20 +91,18 @@ public class MazeGenerator {
                  }
 
             for (int j = 1; j < tree.length; j++) {
-                if(i<n-1 && tree[i][j].equals(tree[i+1][j].parent) || i<n-1 && tree[i+1][j].equals(tree[i][j].parent)){
+                if(i<n-1 && (tree[i][j].parent.equals(tree[i+1][j]) || tree[i+1][j].parent.equals(tree[i][j]))){
                         underscore = false;
                 }else{
                     underscore = true;
                 }
-                 if (!tree[i][j].parent.equals(null) && tree[i][j].parent.equals(tree[i][j-1]) || (j<n-1 && !tree[i][j-1].parent.equals(null) && tree[i][j-1].parent.equals(tree[i][j])) ){
-                    //System.out.println(i + " " + underscore + " " +j);
+                 if ((tree[i][j].parent != null && tree[i][j].parent.equals(tree[i][j-1])) || (tree[i][j-1].parent != null && tree[i][j-1].parent.equals(tree[i][j])) ){
                     if(underscore){
                         System.out.print( " _");
                     }else{
                         System.out.print("  ");
                     }
                  }else{
-                    //System.out.println(i + " " + underscore + " " +j);
                     if(underscore){
                         System.out.print("|_");
                     }else{
