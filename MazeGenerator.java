@@ -23,7 +23,7 @@ public class MazeGenerator {
         return addedNodes;
     }
 
-    // Creates newEdges and also updates UpdatingHeap
+    // Creates newEdges as the algorith goes and also updates UpdatingHeap
     private static void newEdges(Node n, UpdatingHeap heap, int len, boolean[][] inTree, Node[][] tree) {
         if (n.x > 0 && !inTree[n.x - 1][n.y]) {
             Edge up = new Edge(n, tree[n.x-1][n.y]);
@@ -114,7 +114,7 @@ public class MazeGenerator {
                 }else{
                     underscore = true;
                 }
-                 if (tree[i][j].parent.equals(tree[i][j-1]) || (j<n-1 && tree[i][j-1].parent.equals(tree[i][j])) ){
+                 if (!tree[i][j].parent.equals(null) && tree[i][j].parent.equals(tree[i][j-1]) || (j<n-1 && !tree[i][j-1].parent.equals(null) && tree[i][j-1].parent.equals(tree[i][j])) ){
                     //System.out.println(i + " " + underscore + " " +j);
                     if(underscore){
                         System.out.print( " _");
