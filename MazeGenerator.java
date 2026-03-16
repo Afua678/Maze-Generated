@@ -59,7 +59,7 @@ public class MazeGenerator {
 
         System.out.println("Enter an integer for the number of rows and columns in the maze:");
         int n = in.nextInt();
-        System.out.println();
+
         
         // 2D array for keeping track of added vertices (nodes), starts at 0
         Node[][] tree = new Node[n][n];
